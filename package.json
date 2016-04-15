@@ -1,0 +1,17 @@
+{
+  "name": "redis-key-summary",
+  "version": "0.0.1",
+  "description": "Utility to randomly sample redis keys, and provide a summary of key patterns",
+  "author": "Chris Campbell <christopher.d.campbell@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:quaelin/redis-key-summary.git"
+  },
+  "engines": {
+    "node": "4.4.3"
+  },
+  "dependencies": {
+    "ioredis": "^1.15.1"
+  }
+}
