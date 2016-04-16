@@ -3,7 +3,7 @@ var _ = require('lodash'),
   host = args.h || 'localhost',
   port = Number(args.p) || 6379,
   numKeys = Number(args.n),
-  maxPartLength = 30,
+  maxPartLength = 40,
   Redis = require('ioredis'),
   results = {},
   separator = ':',
@@ -62,6 +62,26 @@ function parseKey(key) {
   return [firstPart].concat(parseKey(key.substr(s + 1)));
 }
 
+function condenseTree(obj) {
+  var condensed = obj;
+  if (_.isObject(obj)) {
+    condensed = {};
+    _.each(obj, function(v, p) {
+      v = condenseTree(v);
+      if (_.isObject(v)) {
+        var key, keys = _.keys(v), r = {};
+        if (keys.length === 1) {
+          key = keys[0];
+          condensed[[p, key].join(separator)] = v[key];
+          return;
+        }
+      }
+      condensed[p] = v;
+    });
+  }
+  return condensed;
+}
+
 function processSampledKey(key) {
   incorporate(results, parseKey(key));
 }
@@ -79,6 +99,6 @@ when.all(_.times(numKeys, function() {
 }))
   .then(function(keys) {
     processSampledKeys(keys);
-    console.log(JSON.stringify(prune(results), null, 2));
+    console.log(JSON.stringify(condenseTree(prune(results)), null, 2));
     process.exit(0);
   });
