@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "ioredis": "^4.16.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "when": "^3.7.7"
   }
