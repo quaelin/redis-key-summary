@@ -9,7 +9,7 @@
     "url": "git@github.com:quaelin/redis-key-summary.git"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "dependencies": {
     "ioredis": "^4.16.0",
